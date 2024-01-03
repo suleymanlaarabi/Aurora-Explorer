@@ -3,7 +3,7 @@
 ## About the Project
 🚀 Aurora Explorer is a modern and powerful file management tool, built with Electron, ReactTS, and ChakraUI. It provides an intuitive user experience and a sleek user interface.
 
-![Main Interface of Aurora Explorer](preview/shot2.png)
+![Main Interface of Aurora Explorer](preview/shot1.png)
 *Main interface of the Aurora Explorer*
 
 ## Features
