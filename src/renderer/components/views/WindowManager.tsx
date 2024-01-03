@@ -1,5 +1,7 @@
 import {
   FunctionComponent,
+  useEffect,
+  useRef,
   useState,
   // useEffect,
   // useRef
@@ -20,6 +22,7 @@ import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import Window from "../Window";
 import WindowNavBar from "../layouts/WindowNavBar";
+import html2canvas from "html2canvas";
 
 //  import html2canvas from "html2canvas";
 
@@ -42,10 +45,40 @@ interface WindowManagerProps {}
 
 const WindowManager: FunctionComponent<WindowManagerProps> = () => {
   const [windows, setWindows] = useState([1]);
+  const ref = useRef(null);
+
+  // useEffect(() => {
+  //   // on click space bar
+  //   const handleKeyDown = (e: KeyboardEvent) => {
+  //     console.log(e.code);
+  //     if (e.code === "Space") {
+  //       // get last window id
+  //       html2canvas(ref.current, {
+  //         foreignObjectRendering: true,
+  //       }).then((canvas) => {
+  //         const link = document.createElement("a");
+  //         link.download = "image.png";
+  //         link.href = canvas.toDataURL();
+  //         link.click();
+  //       });
+  //     }
+  //   };
+
+  //   window.addEventListener("keydown", handleKeyDown);
+
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, []);
 
   return (
     <ChakraProvider theme={theme}>
-      <Tabs className="custom-navbar" backgroundColor="white" height="100vh">
+      <Tabs
+        ref={ref}
+        className="custom-navbar"
+        backgroundColor="white"
+        height="100vh"
+      >
         <TabList className="custom-navbar" height={"50px"}>
           <Flex
             mt={"1px"}
