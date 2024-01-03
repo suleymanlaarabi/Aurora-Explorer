@@ -1,0 +1,33 @@
+module.exports = {
+  extends: "erb",
+  plugins: ["@typescript-eslint"],
+  rules: {
+    // A temporary hack related to IDE not resolving correct package.json
+    "import/no-extraneous-dependencies": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": "off",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/no-import-module-exports": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "react/jsx-no-constructed-context-values": "off",
+    "prettier/prettier": "off",
+    "import/order": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "promise/always-return": "off",
+    "promise/catch-or-return": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-console": "off",
+    "no-undef": "off",
+    camelcase: "off",
+    "consistent-return": "off",
+  },
+  parserOptions: {
+    ecmaVersion: 2022,
+    sourceType: "module",
+  },
+};
