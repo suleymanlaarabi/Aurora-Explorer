@@ -3,6 +3,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Flex,
+  Spinner,
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaChevronRight } from "react-icons/fa";
@@ -26,7 +27,7 @@ export interface PropertyFileProps {
 }
 
 const FileExplorer = () => {
-  const { path, setPath, files } = useContext(appContext);
+  const { path, setPath, files, isLoading, error } = useContext(appContext);
 
   const pathItems = convertPathToObjects(path);
 
@@ -67,6 +68,8 @@ const FileExplorer = () => {
       <FileModal isOpen={isOpen} onClose={onClose} file={selectedFile} />
       <Breadcrumb
         maxW={"100%"}
+        minH={"50px"}
+        overflowY={"hidden"}
         overflowX={"auto"}
         p={4}
         pb={0}
@@ -87,7 +90,15 @@ const FileExplorer = () => {
         gap={5}
         flexDirection="column"
       >
-        <FilesRenderer />
+        {isLoading ? (
+          <Flex height={"50vh"} alignItems={"center"} justifyContent="center">
+            <Spinner />
+          </Flex>
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          <FilesRenderer />
+        )}
       </Flex>
     </Flex>
   );
