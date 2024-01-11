@@ -25,6 +25,7 @@ module.exports = {
     "no-undef": "off",
     camelcase: "off",
     "consistent-return": "off",
+    "no-nested-ternary": "off",
   },
   parserOptions: {
     ecmaVersion: 2022,
