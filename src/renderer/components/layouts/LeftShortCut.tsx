@@ -5,7 +5,7 @@ import { TfiDesktop } from "react-icons/tfi";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
 import { getTrashSize } from "../../services/utils/fileManagement";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import CreateShortCutModal from "../common/Modal/CreateShortCutModal";
 import useModal from "../../hooks/useModal";
@@ -64,9 +64,6 @@ const LeftShortCut = () => {
     setPath(newPath);
     navigate("/");
   };
-
-  const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <>
