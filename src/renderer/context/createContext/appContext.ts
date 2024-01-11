@@ -10,6 +10,8 @@ interface AppContextType {
   removeFile: (file: File) => void;
   removeDirectory: (file: File) => void;
   updateFileName: (file: File, name: string) => void;
+  isLoading: boolean;
+  error: string;
 }
 
 const appContext = createContext<AppContextType>({
@@ -21,6 +23,8 @@ const appContext = createContext<AppContextType>({
   removeFile: () => {},
   removeDirectory: () => {},
   updateFileName: () => {},
+  isLoading: false,
+  error: "",
 });
 
 export default appContext;

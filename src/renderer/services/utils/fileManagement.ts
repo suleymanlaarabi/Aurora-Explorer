@@ -2,59 +2,60 @@ import { PropertyFileProps } from "../../components/views/FileExplorer";
 import { File } from "../../types/contextTypes";
 import fs from "fs";
 import allPath from "../data/osPath";
+import path from "path";
 
-export async function getFiles(path: string): Promise<File[]> {
-  const files: File[] = fs
-    .readdirSync(path)
-    .filter((file) => !file.startsWith("."))
-    .map((file) => {
-      try {
-        const stats = fs.statSync(`${path}/${file}`);
-        return {
-          name: file,
-          is_dir: stats.isDirectory(),
-          size: stats.size,
-          path: `${path}/${file}`,
-          isClickable: true,
-        };
-      } catch (error) {
-        return {
-          name: file,
-          is_dir: false,
-          size: 0,
-          path: `${path}/${file}`,
-          isClickable: false,
-        };
-      }
-    });
-  return files;
+export async function getFiles(directoryPath: string) {
+  const files = await fs.promises.readdir(directoryPath);
+  return Promise.all(
+    files
+      .filter((file) => !file.startsWith("."))
+      .map(async (file) => {
+        const filePath = path.join(directoryPath, file);
+        try {
+          const stats = await fs.promises.stat(filePath);
+          return {
+            name: file,
+            is_dir: stats.isDirectory(),
+            size: stats.size,
+            path: filePath,
+            isClickable: true,
+          };
+        } catch (error) {
+          return {
+            name: file,
+            is_dir: false,
+            size: 0,
+            path: filePath,
+            isClickable: false,
+          };
+        }
+      })
+  );
 }
 
-export async function readFile(path: string): Promise<string> {
-  return fs.readFileSync(path, "utf-8");
+export async function readFile(filePath: string): Promise<string> {
+  return fs.readFileSync(filePath, "utf-8");
 }
 
 export async function createFile(
-  path: string,
+  filePath: string,
   content: string = ""
 ): Promise<void> {
-  fs.writeFileSync(path, content);
+  fs.writeFileSync(filePath, content);
 }
 
-export async function createFolder(path: string): Promise<void> {
-  fs.mkdirSync(path);
+export async function createFolder(filePath: string): Promise<void> {
+  fs.mkdirSync(filePath);
 }
 
-export async function deleteFile(path: string): Promise<void> {
-  fs.unlinkSync(path);
+export async function deleteFile(filePath: string): Promise<void> {
+  fs.unlinkSync(filePath);
 }
 
-export async function deleteFolder(path: string): Promise<void> {
-  fs.rm(path, { recursive: true, force: true }, (err) => {
+export async function deleteFolder(filePath: string): Promise<void> {
+  fs.rm(filePath, { recursive: true, force: true }, (err) => {
     if (err) {
       console.error(`Erreur lors de la suppression du dossier : ${err}`);
-    } else {
-      console.log("Dossier supprimé avec succès");
     }
   });
 }

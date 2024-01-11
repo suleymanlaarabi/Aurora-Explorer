@@ -17,6 +17,8 @@ const AppContextProvider = ({ children }: PropsWithChildren<{}>) => {
   const toast = useToast();
   const [path, setPath] = useState<string>(allPath.userPath);
   const [files, setFiles] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("null");
 
   const fileExists = (filePath: string) =>
     files.some((f) => f.path === filePath);
@@ -68,10 +70,21 @@ const AppContextProvider = ({ children }: PropsWithChildren<{}>) => {
 
   useEffect(() => {
     const fetchFiles = async () => {
-      const data = await getFiles(path);
-      setFiles(data);
+      setIsLoading(true);
+      setError("");
+      try {
+        const data = await getFiles(path);
+        setFiles(data);
+      } catch (e) {
+        setError((e as Error).message);
+      } finally {
+        setIsLoading(false);
+      }
     };
-    fetchFiles();
+
+    if (path) {
+      fetchFiles();
+    }
   }, [path]);
 
   const contextValue = {
@@ -83,6 +96,8 @@ const AppContextProvider = ({ children }: PropsWithChildren<{}>) => {
     removeFile,
     removeDirectory,
     updateFileName,
+    isLoading,
+    error,
   };
 
   return (

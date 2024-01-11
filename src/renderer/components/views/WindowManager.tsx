@@ -1,10 +1,8 @@
 import {
   FunctionComponent,
-  useEffect,
+  //  useEffect,
   useRef,
   useState,
-  // useEffect,
-  // useRef
 } from "react";
 import {
   ChakraProvider,
@@ -22,7 +20,6 @@ import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import Window from "../Window";
 import WindowNavBar from "../layouts/WindowNavBar";
-import html2canvas from "html2canvas";
 
 //  import html2canvas from "html2canvas";
 
@@ -114,16 +111,18 @@ const WindowManager: FunctionComponent<WindowManagerProps> = () => {
               key={window}
             >
               {window}
-              <IconButton
-                size="sm"
-                fontSize={"12px"}
-                className="no-drag"
-                aria-label="Add Window"
-                icon={<IoMdClose />}
-                onClick={() => {
-                  setWindows(windows.filter((w) => w !== window));
-                }}
-              />
+              {windows.length > 1 && (
+                <IconButton
+                  size="sm"
+                  fontSize={"12px"}
+                  className="no-drag"
+                  aria-label="Add Window"
+                  icon={<IoMdClose />}
+                  onClick={() => {
+                    setWindows(windows.filter((w) => w !== window));
+                  }}
+                />
+              )}
             </Tab>
           ))}
 
